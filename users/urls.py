@@ -1,9 +1,9 @@
 
-from .views.LoginView import LoginView
-from .views.UserView import UserView
-from .views.LogoutView import LogoutView
-from .views.RegisterView import RegisterView
-from rest_framework.urls import path
+from users.views2.LoginView import LoginView
+from users.views2.UserView import UserView
+from users.views2.LogoutView import LogoutView
+from users.views2.RegisterView import RegisterView
+from django.urls import path
 
 urlpatterns = [
     
