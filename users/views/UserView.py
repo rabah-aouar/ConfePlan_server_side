@@ -1,8 +1,4 @@
-from ast import Return
-from email import message
-import email
-from email.message import EmailMessage
-import imp
+
 from django.shortcuts import render
 from users.serializers import UserSerializer
 from rest_framework.views import APIView
