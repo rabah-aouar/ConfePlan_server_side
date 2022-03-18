@@ -8,7 +8,7 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime
 
 
-class UserView(APIView):
+class ProfileView(APIView):
     def get(self, request):
 
         token = request.COOKIES.get('jwt')
@@ -16,11 +16,12 @@ class UserView(APIView):
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
         try:
+            #payload will containe decoded information email password and id 
             payload=jwt.decode(token,'secret',algorithms=['HS256'])
             print(payload)    
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        user = User.objects.filter(email=payload['email'],password=payload['password']).first()
+        user = User.objects.filter(id=payload['id']).first()
         serializer = UserSerializer(user)
         return Response(serializer.data)
