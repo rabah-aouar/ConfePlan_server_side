@@ -1,8 +1,11 @@
 
 # Create your models here.
-from contextlib import nullcontext
+from distutils.command.upload import upload
+from pyexpat import model
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser,AbstractBaseUser,BaseUserManager
+
 
 
 # Create your models here.
@@ -11,7 +14,7 @@ class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None):
 
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError('Users must have an email adress')
         user = self.model(
             email=self.normalize_email(email),
             
@@ -22,31 +25,31 @@ class MyUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None):
-        """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
-        """
         user = self.create_user(
             email,
             password=password,
         )
         user.is_admin = True
+        user.is_email_verified=True
         user.save(using=self._db)
         return user
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(max_length=255,unique=True,)
-    first_name = models.CharField(max_length=255,blank=True)
-    family_name = models.CharField(max_length=255,blank=True)
+    id=models.CharField(max_length=255,default=uuid.uuid4,primary_key=True,editable=False)
+    email = models.EmailField(max_length=255,unique=True)
+    first_name = models.CharField(max_length=255)
+    family_name = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    phone_number=models.CharField(max_length=255,blank=True)
-    full_adress=models.CharField(max_length=255,blank=True)
-    linked_in_username=models.CharField(max_length=255,blank=True)
-    fields_of_interssts=models.CharField(max_length=255,blank=True)
+    phone_number=models.CharField(max_length=255)
+    full_adress=models.CharField(max_length=255)
+    linked_in_username=models.CharField(max_length=255)
+    fields_of_interssts=models.CharField(max_length=255)
+    bio=models.CharField(max_length=1000,default='this is bio',editable=True)
+    profile_picture=models.ImageField(upload_to='profile_pictures',null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-
+    is_email_verified=models.BooleanField(default=False)
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
