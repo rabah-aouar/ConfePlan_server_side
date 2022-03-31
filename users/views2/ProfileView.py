@@ -8,7 +8,7 @@ from users.models import User
 
 class ProfileView(GenericAPIView):
     serializer_class=UserProfileModificationSerializer
-
+    #get user profile informations
     def get(self, request):
         if request.user.is_active:
             if request.user.is_email_verified:
@@ -18,7 +18,7 @@ class ProfileView(GenericAPIView):
                 return Response({'message': 'email is not verified '},status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'message': 'account is blocked'},status=status.HTTP_400_BAD_REQUEST)
-
+    #modify user profile informations
     def put(self,request):
         try:
             user = User.objects.get(id=request.user.id)

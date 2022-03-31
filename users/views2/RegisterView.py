@@ -14,6 +14,7 @@ from users.models import User
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
+#function that send verification email
 def send_verification_email(email,uuid):
     verification_page_link='http://127.0.0.1:8000/users/verify-account/?id='+uuid
     subject = 'confirm your account on Confplan'
@@ -43,6 +44,7 @@ class RegisterView(GenericAPIView):
 
         response = Response()
         response.data = {
+            'id':serializer.data['id'],
             'message': 'confirmation email sent '
         }
         

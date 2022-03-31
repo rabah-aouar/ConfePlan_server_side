@@ -15,6 +15,6 @@ urlpatterns = [
     path('profile', ProfileView.as_view()),
     #path('logout',LogoutView.as_view()),
     path('register', RegisterView.as_view()),
-    path('verify-account/<slug:id>', VerifyEmailView.as_view()),
-    path('admin/<slug:id>',AdminView.as_view())
+    path('verify-account/<str:id>', VerifyEmailView.as_view()),
+    path('admin/<str:id>',AdminView.as_view())
 ]
