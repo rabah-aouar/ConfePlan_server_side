@@ -1,7 +1,3 @@
-
-import email
-from typing_extensions import Required
-from django.forms import CharField, UUIDField
 from rest_framework import serializers
 from ..models import User
 from django.db import models
@@ -9,7 +5,7 @@ from django.db import models
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model= User
-        fields=['first_name','family_name','email','password','phone_number','full_adress','linked_in_username','fields_of_interssts']
+        fields=['id','first_name','family_name','email','password','phone_number','full_adress','linked_in_username','fields_of_interssts']
         #password is for write only 
         extra_kwargs = {'password': {'write_only': True}}
     

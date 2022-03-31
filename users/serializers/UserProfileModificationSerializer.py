@@ -12,4 +12,4 @@ class UserProfileModificationSerializer(serializers.ModelSerializer):
     bio=serializers.CharField(max_length=1000,default='this is bio',required=False)
     class Meta:
         model= User
-        fields=['first_name','family_name','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture']
+        fields=['id','first_name','family_name','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture']
