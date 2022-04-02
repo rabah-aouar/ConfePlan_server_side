@@ -16,7 +16,11 @@ from users.models import User
 # Create your models here.
 
 
-
+conference_status_choices = [
+    ('pending', 'pending'),
+    ('accepted', 'accepted'),
+    ('refused', 'refused'),
+]
 class Conference(models.Model):
     title=models.CharField(max_length=100,blank=False,null=False)
     description=models.TextField(max_length=3000,blank=False,null=False)
@@ -27,12 +31,10 @@ class Conference(models.Model):
     location=models.CharField(max_length=200,blank=False,null=False)
     site=models.CharField(max_length=200,blank=False,null=False)
     logo=models.ImageField(upload_to='logos',blank=True,default='hello')
-    status=models.CharField(max_length=15,default='waiting')
+    status=models.CharField(max_length=15,default='waiting',choices=conference_status_choices)
     creator=models.ForeignKey(User,on_delete=models.CASCADE,related_name='conference_creator',editable=False)
     reviewers=models.ManyToManyField(User,related_name='conference_reviewers')
     applied_personnes=models.ManyToManyField(User,related_name='conference_applied_personnes')
     accepted_personnes=models.ManyToManyField(User,related_name='conference_accepted_personnes')
-
-    
     def __str__(self):
         return(self.title)
