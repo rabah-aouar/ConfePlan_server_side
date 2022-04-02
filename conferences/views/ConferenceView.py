@@ -9,16 +9,7 @@ from rest_framework.response import Response
 
 class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
-    def get(self,request):
-        try:
-            conferences=Conference.objects.all()
-        except:
-            return Response({},status=status.HTTP_404_NOT_FOUND)
-        if not conferences is None:
-            return Response(data=ConferenceDetailSerializer(conferences,many=True).data,status=status.HTTP_200_OK)
-        else:
-            return Response({},status=status.HTTP_200_OK)
-
+    #pagination_class=None
     def post(self, request):
             serializer= ConferenceDetailSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)

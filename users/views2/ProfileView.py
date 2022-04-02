@@ -4,10 +4,13 @@ from users.serializers.UserProfileModificationSerializer import UserProfileModif
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from users.models import User
+from rest_framework.parsers import FormParser, MultiPartParser
 
 
 class ProfileView(GenericAPIView):
     serializer_class=UserProfileModificationSerializer
+    pagination_class=None
+    parser_classes = (FormParser, MultiPartParser)
     #get user profile informations
     def get(self, request):
         if request.user.is_active:

@@ -25,6 +25,7 @@ def send_verification_email(email,uuid):
     return
 
 class RegisterView(GenericAPIView):
+    ''' hello kfbeziufbzeiubzeiubciuzebb '''
     permission_classes = ()  #allow any user to use this endpoint without authentification
     serializer_class=RegisterUserSerializer
     

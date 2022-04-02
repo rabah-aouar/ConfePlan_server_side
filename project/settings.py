@@ -85,14 +85,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         #'rest_framework.permissions.IsAdminUser',
         #'rest_framework.permissions.AllowAny',
-    ]
+    ),
+
 }
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -171,7 +172,6 @@ AUTH_USER_MODEL = 'users.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-
 
 #added to add picture
 MEDIA_URL = '/media/'

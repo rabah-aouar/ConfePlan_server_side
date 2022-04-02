@@ -9,7 +9,7 @@ from rest_framework.generics import GenericAPIView
 from conferences.serializers.AccepteConferenceSerializer import AccepteConferenceSerializer
 
 class AdminView(GenericAPIView):
-    permission_class=[IsAdminUser] #only admins can use this view(end point)
+    permission_classes=[IsAdminUser] #only admins can use this view(end point)
     serializer_class=AccepteConferenceSerializer
 
     #accpte conference status='accepted'
