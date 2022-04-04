@@ -5,11 +5,11 @@ from conferences.serializers.ConferenceDetailSerializer import ConferenceDetailS
 from conferences.serializers.ConferenceDetailForCreatorSerializer import ConferenceDetailForCreatorSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-
+from rest_framework.parsers import FormParser, MultiPartParser
 
 class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
-    #pagination_class=None
+    parser_classes = (FormParser, MultiPartParser)
     def post(self, request):
             serializer= ConferenceDetailSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)

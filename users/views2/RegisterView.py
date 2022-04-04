@@ -25,7 +25,10 @@ def send_verification_email(email,uuid):
     return
 
 class RegisterView(GenericAPIView):
-    ''' hello kfbeziufbzeiubzeiubciuzebb '''
+    ''' end point for registration 
+    if the registration end successfully response status 200  body : {{'id':----------,'message': 'confirmation email sent '
+    if the registration failed status 400 body : {'email doesnt sent'} you have to verify the cnx (to send an email to the uset)
+    '''
     permission_classes = ()  #allow any user to use this endpoint without authentification
     serializer_class=RegisterUserSerializer
     

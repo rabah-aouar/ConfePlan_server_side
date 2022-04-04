@@ -8,19 +8,16 @@ from rest_framework.parsers import FormParser, MultiPartParser
 
 
 class ProfileView(GenericAPIView):
+    '''
+    put methode modify user profile 
+    '''
     serializer_class=UserProfileModificationSerializer
-    pagination_class=None
     parser_classes = (FormParser, MultiPartParser)
     #get user profile informations
     def get(self, request):
-        if request.user.is_active:
-            if request.user.is_email_verified:
-                serializer = self.serializer_class(request.user)
-                return Response(serializer.data)
-            else:
-                return Response({'message': 'email is not verified '},status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'message': 'account is blocked'},status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer_class(request.user)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
     #modify user profile informations
     def put(self,request):
         try:

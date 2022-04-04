@@ -10,6 +10,21 @@ from rest_framework.generics import GenericAPIView
 from users.serializers.UserProfileSerializer import RegisterUserSerializer
 
 class AdminView(GenericAPIView):
+    '''
+    only admin account can use this endpoint
+
+    
+    with put methode can change the user is_active (True/False)
+    True active
+    False blocked
+    if operation success status 200 
+    if id is not valid status 400 body{'detail':invalid id}
+
+
+    with delete methode 
+    if operation success status 200 
+    if id is not valid status 400 body{'detail':invalid id}
+    '''
     permission_classes=[IsAdminUser] #only admins can use this end point
     serializer_class=BlockUserSerializer
     #block user is_active=false
@@ -24,7 +39,7 @@ class AdminView(GenericAPIView):
             user.save()
             return Response(status=status.HTTP_200_OK)
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={'detail':'invalid id '},status=status.HTTP_400_BAD_REQUEST)
     #delete user (!!!!!!to continue!!!!!)
     def delete(self,request,id):
         try:
@@ -35,4 +50,4 @@ class AdminView(GenericAPIView):
             serializer.save()
             return Response(status=status.HTTP_200_OK)
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={'detail':'invalid id '},status=status.HTTP_400_BAD_REQUEST)
