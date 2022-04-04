@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'conferences',
-    'notifications'
+    'notifications',
+    'articles'
 ]
 
 MIDDLEWARE = [

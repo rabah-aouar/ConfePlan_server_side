@@ -7,6 +7,11 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime
 
 class VerifyEmailView(APIView):
+    '''
+    endpoint to email verification
+    if operation success status 200  body:{'detail': ' email verification successfully'}
+    if id is not valid status 400 body{'detail':invalid id}
+    '''
     permission_classes=()
     serializer_class=None
     def post(self,request,id):
@@ -15,7 +20,7 @@ class VerifyEmailView(APIView):
             user.is_email_verified=True
             user.save()
             return Response({
-                    'message': ' email verification successfully'
+                    'detail': ' email verification successfully'
                 },status=status.HTTP_200_OK)
         except:
             return Response({'message': 'invalid id'},status=status.HTTP_400_BAD_REQUEST)

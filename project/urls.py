@@ -50,6 +50,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/',include('users.urls')),
     path('conferences/',include('conferences.urls')),
+    path('articles/',include('articles.urls')),
     path('notifications/',include('notifications.urls')),
     path('users/login/token/', MyTokenView.as_view(), name='token_obtain_pair'),
     #path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

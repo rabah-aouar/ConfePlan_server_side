@@ -14,7 +14,7 @@ class AdminView(GenericAPIView):
 
     #accpte conference status='accepted'
     #refuse conference status='refused'
-    #by default waiting
+    #by default pending
     def put(self, request ,id):
         serializer=AccepteConferenceSerializer(data=request.data)
         if not serializer.is_valid():

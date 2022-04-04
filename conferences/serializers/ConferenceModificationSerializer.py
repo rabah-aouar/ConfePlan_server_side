@@ -4,7 +4,6 @@ from rest_framework import serializers
 from users.models import User
 from ..models import Conference
 from django.db import models
-
 class ConferenceModificationSerializer(serializers.ModelSerializer):
     title=serializers.CharField(max_length=255,required=False)
     description=serializers.CharField(max_length=255,required=False)
@@ -16,9 +15,8 @@ class ConferenceModificationSerializer(serializers.ModelSerializer):
     name_of_host=serializers.CharField(max_length=255,required=False)
     logo=serializers.ImageField(required=False)
     reviewers=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
-    applied_personnes=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
-    accepted_personnes=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
-    is_accepted=serializers.BooleanField(read_only=True)
+    pending_articles=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
+    accepted_articles=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
     class Meta:
         model=Conference
-        exclude=['creator']
+        exclude=['creator','status']
