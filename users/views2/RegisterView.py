@@ -16,7 +16,7 @@ from rest_framework.permissions import AllowAny
 
 #function that send verification email
 def send_verification_email(email,uuid):
-    verification_page_link='http://127.0.0.1:8000/users/verify-account/?id='+uuid
+    verification_page_link='http://127.0.0.1:8000/users/verify-account/'+uuid
     subject = 'confirm your account on Confplan'
     message = 'Thanks for signing up with Confplan you must follow this link to activate your account\n'+verification_page_link
     email_from = settings.EMAIL_HOST_USER
@@ -49,7 +49,7 @@ class RegisterView(GenericAPIView):
         response = Response()
         response.data = {
             'id':serializer.data['id'],
-            'message': 'confirmation email sent '
+            'message': 'confirmation email sent ' 
         }
         
         return response
