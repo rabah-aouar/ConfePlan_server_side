@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'users',
     'conferences',
     'notifications',
-    'articles'
+    'articles',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -94,6 +95,7 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.IsAdminUser',
         #'rest_framework.permissions.AllowAny',
     ),
+    #'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
 }
 SWAGGER_SETTINGS = {

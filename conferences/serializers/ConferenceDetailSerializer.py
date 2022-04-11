@@ -8,5 +8,5 @@ class ConferenceDetailSerializer(serializers.ModelSerializer):
     end_date=serializers.DateTimeField()
     class Meta:
         model= Conference
-        fields=['id','title','description','categories','start_date','end_date','location','site','logo']
+        fields=['id','title','description','name_of_host','categories','start_date','end_date','location','site','logo']
 

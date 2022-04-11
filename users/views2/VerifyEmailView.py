@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,13 +15,11 @@ class VerifyEmailView(APIView):
     '''
     permission_classes=()
     serializer_class=None
-    def post(self,request,id):
+    def get(self,request,id):
         try:
             user=User.objects.get(id=id.replace('"',''))
             user.is_email_verified=True
             user.save()
-            return Response({
-                    'detail': ' email verification successfully'
-                },status=status.HTTP_200_OK)
+            return HttpResponseRedirect(redirect_to='http://127.0.0.1:3000/confirm')
         except:
             return Response({'message': 'invalid id'},status=status.HTTP_400_BAD_REQUEST)
