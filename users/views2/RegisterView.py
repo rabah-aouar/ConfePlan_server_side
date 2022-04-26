@@ -9,7 +9,7 @@ from rest_framework import status
 
 #function that send verification email
 def send_verification_email(email,uuid):
-    verification_page_link='http://127.0.0.1:8000/users/verify-account/?id='+uuid
+    verification_page_link='http://127.0.0.1:8000/users/verify-account/'+uuid
     subject = 'confirm your account on Confplan'
     message = 'Thanks for signing up with Confplan you must follow this link to activate your account\n'+verification_page_link
     email_from = settings.EMAIL_HOST_USER
@@ -18,6 +18,10 @@ def send_verification_email(email,uuid):
     return
 
 class RegisterView(GenericAPIView):
+    ''' end point for registration 
+    if the registration end successfully response status 200  body : {{'id':----------,'message': 'confirmation email sent '
+    if the registration failed status 400 body : {'email doesnt sent'} you have to verify the cnx (to send an email to the uset)
+    '''
     permission_classes = ()  #allow any user to use this endpoint without authentification
     serializer_class=RegisterUserSerializer
     
@@ -38,7 +42,7 @@ class RegisterView(GenericAPIView):
         response = Response()
         response.data = {
             'id':serializer.data['id'],
-            'message': 'confirmation email sent '
+            'message': 'confirmation email sent ' 
         }
         
         return response

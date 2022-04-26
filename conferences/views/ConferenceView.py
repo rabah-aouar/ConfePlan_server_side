@@ -5,20 +5,11 @@ from conferences.serializers.ConferenceDetailSerializer import ConferenceDetailS
 from conferences.serializers.ConferenceDetailForCreatorSerializer import ConferenceDetailForCreatorSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-
+from rest_framework.parsers import FormParser, MultiPartParser
 
 class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
-    def get(self,request):
-        try:
-            conferences=Conference.objects.all()
-        except:
-            return Response({},status=status.HTTP_404_NOT_FOUND)
-        if not conferences is None:
-            return Response(data=ConferenceDetailSerializer(conferences,many=True).data,status=status.HTTP_200_OK)
-        else:
-            return Response({},status=status.HTTP_200_OK)
-
+    parser_classes = (FormParser, MultiPartParser)
     def post(self, request):
             serializer= ConferenceDetailSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)

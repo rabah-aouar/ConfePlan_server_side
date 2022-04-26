@@ -9,12 +9,12 @@ from rest_framework.generics import GenericAPIView
 from conferences.serializers.AccepteConferenceSerializer import AccepteConferenceSerializer
 
 class AdminView(GenericAPIView):
-    permission_class=[IsAdminUser] #only admins can use this view(end point)
+    permission_classes=[IsAdminUser] #only admins can use this view(end point)
     serializer_class=AccepteConferenceSerializer
 
     #accpte conference status='accepted'
     #refuse conference status='refused'
-    #by default waiting
+    #by default pending
     def put(self, request ,id):
         serializer=AccepteConferenceSerializer(data=request.data)
         if not serializer.is_valid():

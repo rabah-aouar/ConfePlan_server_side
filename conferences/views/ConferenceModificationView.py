@@ -6,9 +6,11 @@ from ..serializers.ConferenceDetailForCreatorSerializer import ConferenceDetailF
 from ..serializers.ConferenceModificationSerializer import ConferenceModificationSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
+from rest_framework.parsers import FormParser, MultiPartParser
 
 class ConferenceModificationView(GenericAPIView):
     serializer_class=ConferenceModificationSerializer
+    parser_classes = (FormParser, MultiPartParser)
     #get conference information with id of the conference 
     #if request from creator more information will be shown
     def get(self,request,id):
