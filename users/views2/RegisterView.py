@@ -1,18 +1,11 @@
-from email.message import EmailMessage
-from msilib import UuidCreate
-from os import link
 from rest_framework.generics import GenericAPIView
-import uuid
-from django.shortcuts import render
 from users.serializers.UserProfileSerializer import RegisterUserSerializer
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
 from django.core.mail import send_mail
 from django.conf import settings
 from users.models import User
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+
 
 #function that send verification email
 def send_verification_email(email,uuid):
