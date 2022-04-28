@@ -1,6 +1,7 @@
 from datetime import datetime
+from pyexpat import model
 from django.db import models
-from articles.models.Article_Author import Article_____
+from articles.models.Article_Author import Article_Author
 from conferences.models import Conference
 from users.models import User
 
@@ -16,4 +17,5 @@ class Article(models.Model):
     status=models.CharField(max_length=30,blank=True,default='pending')
     conference_id=models.ForeignKey(Conference,on_delete=models.CASCADE)
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    authors=models.ManyToManyField("articles.Author",through=Article_____)
+    authors=models.ManyToManyField(to="articles.Author",through=Article_Author)
+    reviewers=models.ManyToManyField(User,related_name="reviewrs_of_article")
