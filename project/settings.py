@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'conferences',
     'notifications',
     'articles',
-    'django_filters'
+    'django_filters',
+    'reports'
 ]
 
 MIDDLEWARE = [

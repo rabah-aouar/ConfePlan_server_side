@@ -1,18 +1,11 @@
 import datetime
-from distutils.command.upload import upload
-from email.mime import image
 from email.policy import default
-import os
-from pyexpat import model
-import site
-from statistics import mode
-from tkinter import CASCADE
-from tkinter.tix import Balloon
-from turtle import title
-from unicodedata import category
-from uuid import uuid4
+
+
 from django.db import models
+#from articles.models.Article import Article
 from users.models import User
+#from articles.models.Article import Article
 
 # Create your models here.
 
@@ -30,14 +23,15 @@ class Conference(models.Model):
     name_of_host=models.CharField(max_length=200,blank=False,null=False)
     start_date=models.DateTimeField(max_length=100,blank=False,null=False)
     end_date=models.DateTimeField(max_length=100,blank=False,null=False)
+    submition_deadline=models.DateTimeField(max_length=100,blank=False,null=False,default=datetime.datetime.now)
     location=models.CharField(max_length=200,blank=False,null=False)
     site=models.CharField(max_length=200,blank=False,null=False)
     logo=models.ImageField(upload_to='logos',blank=True,default='hello')
     status=models.CharField(max_length=15,default='pending',choices=conference_status_choices)
     creator=models.ForeignKey(User,on_delete=models.CASCADE,related_name='conference_creator',editable=False)
     reviewers=models.ManyToManyField(User,related_name='conference_reviewers')
-    pending_articles=models.ManyToManyField(User,related_name='conference_pending_articles')
-    accepted_articles=models.ManyToManyField(User,related_name='conference_accepted_articles')
+    #pending_articles=models.ManyToManyField("articles.Article",related_name='conference_pending_articles')
+    #accepted_articles=models.ManyToManyField("articles.Article",related_name='conference_accepted_articles')
     class Meta:
         ordering=['-date_of_creation']
     def __str__(self):

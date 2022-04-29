@@ -10,6 +10,7 @@ class ConferenceModificationSerializer(serializers.ModelSerializer):
     categories=serializers.CharField(max_length=255,required=False)
     start_date=serializers.DateTimeField(required=False)
     end_date=serializers.DateTimeField(required=False)
+    submition_deadline=serializers.DateTimeField(required=False)
     location=serializers.CharField(max_length=255,required=False)
     site=serializers.CharField(max_length=255,required=False)
     name_of_host=serializers.CharField(max_length=255,required=False)
