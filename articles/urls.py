@@ -16,5 +16,5 @@ urlpatterns = [
     path('request_to_edit',RequestToEditView.as_view()),
     path('accepte_to_be_published/<slug:author_id>/<slug:article_id>',AccepteToPublishView.as_view()),
     path('list/path',ArticleListView.as_view({'get': 'list'})),
-    path('admin/<slug:id>',ChangeArticleStatusForChairMan.as_view()),
+    path('<slug:id>',ChangeArticleStatusForChairMan.as_view()),
 ]
