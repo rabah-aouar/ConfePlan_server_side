@@ -111,7 +111,7 @@ SWAGGER_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),
 }
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
