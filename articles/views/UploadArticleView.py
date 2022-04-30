@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import status
 from articles.models.Article import Article
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
@@ -21,9 +22,14 @@ class UploadArticleView(GenericAPIView):
             if serializer.is_valid(raise_exception=True):
                 try:
                     article=Article.objects.get(id=id)
-                    article.article_url=serializer.validated_data['article_url']
-                    article.save()
-                    return Response(data={'article_url':article.article_url.url},status=status.HTTP_200_OK)
+                    print(article.conference_id.submition_deadline.replace(tzinfo=None))
+                    print(datetime.datetime.now())
+                    if article.conference_id.submition_deadline.replace(tzinfo=None) > datetime.datetime.now().replace(tzinfo=None):
+                        article.article_url=serializer.validated_data['article_url']
+                        article.save()
+                        return Response(data={'article_url':article.article_url.url},status=status.HTTP_200_OK)
+                    else:
+                        return Response(data={'deadline has passed'},status=status.HTTP_400_BAD_REQUEST)
                 except:
                     return Response(status=status.HTTP_404_NOT_FOUND)
         except:
