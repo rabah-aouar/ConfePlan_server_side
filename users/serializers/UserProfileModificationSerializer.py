@@ -16,4 +16,4 @@ class UserProfileModificationSerializer(serializers.ModelSerializer):
     profile_picture=serializers.ImageField(required=False,use_url=True)
     class Meta:
         model= User
-        fields=['id','first_name','family_name','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture']
+        fields=['id','first_name','family_name','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture','is_admin']
