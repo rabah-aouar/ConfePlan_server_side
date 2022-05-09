@@ -1,15 +1,21 @@
 
-from users.views2.LoginView import LoginView
+from ast import Delete
+
 from users.views2.ProfileView import ProfileView
-from users.views2.LogoutView import LogoutView
+#from users.views2.LogoutView import LogoutView
 from users.views2.RegisterView import RegisterView
+from users.views2.VerifyEmailView import VerifyEmailView
+from users.views2.AdminView import AdminView
+from users.views2.GetAllusersView import GetAllusersView
 from django.urls import path
 
+
+
 urlpatterns = [
-    
-    #end point that return all the users exists
-    path('login', LoginView.as_view()),
     path('profile', ProfileView.as_view()),
-    path('logout',LogoutView.as_view()),
+    #path('logout',LogoutView.as_view()),
     path('register', RegisterView.as_view()),
+    path('verify-account/<str:id>', VerifyEmailView.as_view()),
+    path('admin/<str:id>',AdminView.as_view()),
+    path('list/path',GetAllusersView.as_view({'get': 'list'}))
 ]
