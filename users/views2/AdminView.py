@@ -42,12 +42,12 @@ class AdminView(GenericAPIView):
             return Response(data={'detail':'invalid id '},status=status.HTTP_400_BAD_REQUEST)
     #delete user (!!!!!!to continue!!!!!)
     def delete(self,request,id):
-        try:
+        #try:
             user=User.objects.get(id=id.replace('"',''))
             serializer=RegisterUserSerializer(user)
             serializer.data['is_active']=False
             user.delete() #delete user information (conferences articles) 
-            serializer.save()
+            User.objects.create(email=serializer.data['email'],password='hhhhh')
             return Response(status=status.HTTP_200_OK)
-        except:
+        #except:
             return Response(data={'detail':'invalid id '},status=status.HTTP_400_BAD_REQUEST)
