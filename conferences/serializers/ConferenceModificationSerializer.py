@@ -16,8 +16,6 @@ class ConferenceModificationSerializer(serializers.ModelSerializer):
     name_of_host=serializers.CharField(max_length=255,required=False)
     logo=serializers.ImageField(required=False)
     reviewers=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
-    pending_articles=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
-    accepted_articles=serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),many=True,allow_null=True,required=False)
     class Meta:
         model=Conference
         exclude=['creator','status']
