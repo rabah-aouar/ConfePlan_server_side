@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q2n7bf24fl57gk#_#wys#9bi(a97a&j+=i+(7e#fd0zz83p!n('
+# SECRET_KEY = 'q2n7bf24fl57gk#_#wys#9bi(a97a&j+=i+(7e#fd0zz83p!n('
+SECRET_KEY = 'django-insecure-!v^x83-xal*k%nh*6!&=2gylckld+p0m=d&!025!8(p3i5iwr%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,7 +53,8 @@ INSTALLED_APPS = [
     'conferences',
     'notifications',
     'articles',
-    'django_filters'
+    'django_filters',
+    'reports'
 ]
 
 MIDDLEWARE = [
@@ -109,7 +111,7 @@ SWAGGER_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=10),
 }
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

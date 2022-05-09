@@ -16,7 +16,6 @@ class ConferenceModificationView(GenericAPIView):
     def get(self,request,id):
         try:
             conference=Conference.objects.get(id=id)
-            
             if conference.creator==request.user:
                 return Response(data=ConferenceDetailForCreatorSerializer(conference).data,status=status.HTTP_200_OK)
             else:
