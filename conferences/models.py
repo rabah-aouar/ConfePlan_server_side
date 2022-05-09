@@ -30,8 +30,7 @@ class Conference(models.Model):
     status=models.CharField(max_length=15,default='pending',choices=conference_status_choices)
     creator=models.ForeignKey(User,on_delete=models.CASCADE,related_name='conference_creator',editable=False)
     reviewers=models.ManyToManyField(User,related_name='conference_reviewers')
-    #pending_articles=models.ManyToManyField("articles.Article",related_name='conference_pending_articles')
-    #accepted_articles=models.ManyToManyField("articles.Article",related_name='conference_accepted_articles')
+    
     class Meta:
         ordering=['-date_of_creation']
     def __str__(self):

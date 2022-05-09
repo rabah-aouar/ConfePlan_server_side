@@ -1,13 +1,15 @@
 from email.policy import default
 from pyexpat import model
 from rest_framework import serializers
+
+from users.models import User
 from ..models import Conference
 
 class ConferenceDetailForCreatorSerializer(serializers.ModelSerializer):
-    #creator=serializers.PrimaryKeyRelatedField()
+    creator=serializers.ReadOnlyField()
     #reviewers=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
     #applied_personnes=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
-    status=serializers.CharField(read_only=True)
+    status=serializers.ReadOnlyField()
     class Meta:
         model=Conference
         fields='__all__'

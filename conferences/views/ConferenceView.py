@@ -11,13 +11,16 @@ class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
     parser_classes = (FormParser, MultiPartParser)
     def post(self, request):
-        serializer= ConferenceDetailSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.errors
-        # save the creator in db
-        serializer.validated_data['creator']=request.user
-        serializer.save()
-        return Response(data=serializer.data,status=status.HTTP_201_CREATED)
+            serializer= ConferenceDetailSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.validated_data['creator']=request.user
+                serializer.save()
+                return Response(data=serializer.data,status=status.HTTP_201_CREATED)
+            else:
+                return Response(data=serializer.errors,status=status.HTTP_201_CREATED)
+            # save the creator in db
+            
+            
             
 
 
