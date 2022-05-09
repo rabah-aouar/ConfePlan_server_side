@@ -7,6 +7,7 @@ from users.views2.RegisterView import RegisterView
 from users.views2.VerifyEmailView import VerifyEmailView
 from users.views2.AdminView import AdminView
 from users.views2.GetAllusersView import GetAllusersView
+from users.views2.GetAllUsersForAdmin import GetAllUsersForAdmin
 from django.urls import path
 
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path('register', RegisterView.as_view()),
     path('verify-account/<str:id>', VerifyEmailView.as_view()),
     path('admin/<str:id>',AdminView.as_view()),
-    path('list/path',GetAllusersView.as_view({'get': 'list'}))
+    path('list/path',GetAllusersView.as_view({'get': 'list'})),
+    path('listforadmin/path',GetAllUsersForAdmin.as_view({'get': 'list'}))
 ]
