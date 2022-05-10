@@ -13,7 +13,7 @@ class GetAllusersView(ModelViewSet):
     serializer_class = UserProfileModificationSerializer
     pagination_class = LimitOffsetPagination
     filter_backends = [SearchFilter]
-    search_fields = ['id','first_name','family_name','email']
+    search_fields = ['first_name','family_name','email']
 
     def get_queryset(self):
         return User.objects.filter(is_admin=False,is_email_verified=True,is_active=True)
