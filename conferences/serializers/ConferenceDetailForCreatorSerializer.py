@@ -6,9 +6,8 @@ from users.models import User
 from ..models import Conference
 
 class ConferenceDetailForCreatorSerializer(serializers.ModelSerializer):
-    creator=serializers.ReadOnlyField()
-    #reviewers=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
-    #applied_personnes=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
+    creator=serializers.PrimaryKeyRelatedField(many=False,allow_null=True,read_only=True)
+    reviewers=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
     status=serializers.ReadOnlyField()
     class Meta:
         model=Conference
