@@ -2,8 +2,9 @@ from ast import Delete
 from webbrowser import get
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from articles.models.Article import Article
+from articles.models.Article import Article, ArticleStatus
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
+from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 from conferences.models import Conference
 from users.models import User
 from rest_framework import status
@@ -23,6 +24,10 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
     #by default pending
     #only the chair man have the permission th change the status 
     def put(self, request ,id):
+            accepted=ArticleStatus.objects.get_or_create(status='accepted')
+            accepted_id=accepted[0].id
+            refused=ArticleStatus.objects.get_or_create(status='refused')
+            refused_id=refused[0].id
             serializer=ChangeArticleStatusSerializer(data=request.data)
             if not serializer.is_valid():
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -31,6 +36,15 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
                 if request.user == Article1.conference_id.creator: 
                     Article1.status=serializer.validated_data['status']
                     Article1.save()
+
+                    if serializer.data.get('status')=="accepted":
+                        sr5=ArticleStatusHistorySerializer(data={"type" :accepted_id,"article":id})
+                    else:
+                        sr5=ArticleStatusHistorySerializer(data={"type" :refused_id,"article":id})
+                        sr5.is_valid(raise_exception=True)
+                        sr5.save()
+
+
                     return Response(status=status.HTTP_200_OK)
                 else:
                     return Response({"you have not permission to change the status of the article"},status=status.HTTP_400_BAD_REQUEST)

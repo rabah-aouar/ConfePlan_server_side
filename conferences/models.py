@@ -1,5 +1,8 @@
 import datetime
 from email.policy import default
+from statistics import mode
+from telnetlib import STATUS
+from xml.parsers.expat import model
 
 
 from django.db import models
@@ -24,6 +27,7 @@ class Conference(models.Model):
     start_date=models.DateTimeField(max_length=100,blank=False,null=False)
     end_date=models.DateTimeField(max_length=100,blank=False,null=False)
     submition_deadline=models.DateTimeField(max_length=100,blank=False,null=False,default=datetime.datetime.now)
+    start_submition_date=models.DateTimeField(max_length=100,blank=False,null=False,default=datetime.datetime.now)
     location=models.CharField(max_length=200,blank=False,null=False)
     site=models.CharField(max_length=200,blank=False,null=False)
     logo=models.ImageField(upload_to='logos',blank=True,default='hello')
@@ -35,3 +39,20 @@ class Conference(models.Model):
         ordering=['-date_of_creation']
     def __str__(self):
         return(self.title)
+
+class DateType(models.Model):
+    type=models.CharField(max_length=100)
+    
+class ConferenceDatesHistory(models.Model):
+    date_of_modification=models.DateTimeField(max_length=100,default=datetime.datetime.now,editable=False)
+    date=models.DateTimeField(max_length=100)
+    conference=models.ForeignKey(Conference,on_delete=models.DO_NOTHING)
+    type=models.ForeignKey(DateType,on_delete=models.DO_NOTHING)
+
+class ConferenceStatus(models.Model):
+    status=models.CharField(max_length=100)
+    
+class ConferneceStatusHistory(models.Model):
+    date_of_modification=models.DateTimeField(max_length=100,default=datetime.datetime.now,editable=False)
+    conference=models.ForeignKey(Conference,on_delete=models.DO_NOTHING)
+    type=models.ForeignKey(ConferenceStatus,on_delete=models.DO_NOTHING)

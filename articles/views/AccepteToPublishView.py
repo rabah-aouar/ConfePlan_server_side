@@ -1,11 +1,12 @@
 from operator import imod
 from django.http import HttpResponseRedirect
 from rest_framework import status
-from articles.models.Article import Article
+from articles.models.Article import Article, ArticleStatus
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from articles.models.Article_Author import Article_Author
+from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 class AccepteToPublishView(GenericAPIView):
     """end point to accepte to publish the article
             you have to specify the author_id and article_id
@@ -22,6 +23,11 @@ class AccepteToPublishView(GenericAPIView):
                 article=Article.objects.get(id=article_id)
                 article.accepted_to_published_by_researchers=True
                 article.save()
+                pending=ArticleStatus.objects.get_or_create(status='pending')
+                pending_id=pending[0].id
+                sr5=ArticleStatusHistorySerializer(data={"type" :pending_id,"conference":article.id})
+                sr5.is_valid(raise_exception=True)
+                sr5.save()
             #redirect to page that provide (you are accepte an article to be reviewed )
             return HttpResponseRedirect(redirect_to='https://www.google.com/?hl=fr')
 

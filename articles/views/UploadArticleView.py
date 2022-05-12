@@ -1,6 +1,7 @@
 import datetime
 from rest_framework import status
 from articles.models.Article import Article
+from articles.serializers.ArticleDatesHistorySerializer import ArticleDatesHistorySerializer
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from articles.serializers.UploadArticleSerializer import UploadArticleSerializer
 from rest_framework.generics import GenericAPIView
@@ -27,6 +28,9 @@ class UploadArticleView(GenericAPIView):
                     if article.conference_id.submition_deadline.replace(tzinfo=None) > datetime.datetime.now().replace(tzinfo=None):
                         article.article_url=serializer.validated_data['article_url']
                         article.save()
+                        sr=ArticleDatesHistorySerializer(data={"Article":id})
+                        sr.is_valid()
+                        sr.save()
                         return Response(data={'article_url':article.article_url.url},status=status.HTTP_200_OK)
                     else:
                         return Response(data={'deadline has passed'},status=status.HTTP_400_BAD_REQUEST)
