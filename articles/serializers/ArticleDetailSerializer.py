@@ -1,6 +1,7 @@
 
 import stat
 from telnetlib import STATUS
+from typing_extensions import Required
 from rest_framework import serializers
 
 from articles.models.Article import Article
@@ -33,7 +34,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     #status=serializers.ReadOnlyField(required=False,default='pending',choices=article_status_choices)
     conference_id=serializers.PrimaryKeyRelatedField(queryset=Conference.objects.all(),many=False)
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
-    user_id=serializers.ReadOnlyField()
+    user_id=serializers.PrimaryKeyRelatedField(queryset=Conference.objects.all(),many=False,required=False)
     class Meta:
         model= Article
         fields=['id','title','description','categories','conference_id','user_id','date_of_creation','last_modification','status','authors']
