@@ -2,6 +2,7 @@ from datetime import datetime
 from rest_framework import status
 from articles.models.Article import Article
 from articles.models.RequestToEdit import RequestToEdit
+from articles.serializers.ArticleDatesHistorySerializer import ArticleDatesHistorySerializer
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from articles.serializers.EditArticleSerializer import EditArticleSerializer
 from rest_framework.generics import GenericAPIView

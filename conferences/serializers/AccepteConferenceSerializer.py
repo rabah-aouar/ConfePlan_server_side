@@ -1,6 +1,6 @@
 from random import choices
 from rest_framework import serializers
-from ..models import User
+from ..models import Conference, User
 
 conference_status_choices = [
     ('pending', 'pending'),
@@ -10,5 +10,5 @@ conference_status_choices = [
 class AccepteConferenceSerializer(serializers.ModelSerializer):
     status=serializers.ChoiceField(required=True,choices=conference_status_choices)
     class Meta:
-        model= User
+        model= Conference
         fields=['status']

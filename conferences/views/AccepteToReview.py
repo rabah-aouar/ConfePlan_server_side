@@ -12,10 +12,11 @@ from notifications.models import notification
 class AccepteToReview(GenericAPIView):
     serializer_class=()
     parser_classes = (FormParser, MultiPartParser)
-    def post(self,request,notification_id):
+    def post(self,request,id):
         try:
-            notification1=notification.objects.get(id=notification_id)
-            conference=notification1.conference_id
+            notification1=notification.objects.get(id=id)
+            print(notification1)
+            conference=Conference.objects.get(id=notification1.conference_id)
             conference.reviewers.add(request.user)
             return Response(status=status.HTTP_200_OK)
         except:

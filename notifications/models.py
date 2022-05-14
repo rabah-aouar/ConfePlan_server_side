@@ -1,7 +1,6 @@
 import datetime
 from telnetlib import STATUS
 from django.db import models
-
 from users.models import User
 
 

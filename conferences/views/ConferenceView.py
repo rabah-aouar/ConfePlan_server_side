@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser
 
 from conferences.serializers.ConferenceStatusHistorySerializer import ConferenceStatusHistorySerializer
+from notifications.models import notification
 
 class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
@@ -25,7 +26,9 @@ class ConferenceView(GenericAPIView):
             start_submition_date_id=start_submition_date[0].id
             pending=ConferenceStatus.objects.get_or_create(status='pending')
             pending_id=pending[0].id
+            
             if serializer.is_valid(raise_exception=True):
+                
                 serializer.validated_data['creator']=request.user
                 serializer.save()
                 sr1=ConferenceDatesHistorySerializer(data={"date":serializer.validated_data['start_date'],"type" :start_date_id,"conference":serializer.data['id']})
@@ -43,12 +46,13 @@ class ConferenceView(GenericAPIView):
                 sr5=ConferenceStatusHistorySerializer(data={"type" :pending_id,"conference":serializer.data['id']})
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
+                for reviewer in serializer.validated_data['reviewers']:
+                    nt=notification.objects.create(subject='you are invited to review in conference',type='invitation',invitation_status='pending',conference_id=serializer.data['id'])
+                    nt.users_list(reviewer)
                 return Response(data=serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(data=serializer.errors,status=status.HTTP_201_CREATED)
             # save the creator in db
             
             
-            
-
 

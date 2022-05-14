@@ -22,12 +22,12 @@ class Article(models.Model):
 
 class ArticleDatesHistory(models.Model):
     date_of_modification=models.DateTimeField(max_length=100,default=datetime.now,editable=False)
-    Article=models.ForeignKey(Article,on_delete=models.DO_NOTHING)
+    Article=models.ForeignKey(Article,on_delete=models.CASCADE)
 
 class ArticleStatus(models.Model):
     status=models.CharField(max_length=100)
     
 class ArticleStatusHistory(models.Model):
     date_of_modification=models.DateTimeField(max_length=100,default=datetime.now,editable=False)
-    Article=models.ForeignKey(Article,on_delete=models.DO_NOTHING)
-    type=models.ForeignKey(ArticleStatus,on_delete=models.DO_NOTHING)
+    Article=models.ForeignKey(Article,on_delete=models.CASCADE)
+    type=models.ForeignKey(ArticleStatus,on_delete=models.CASCADE)

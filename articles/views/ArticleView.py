@@ -16,7 +16,7 @@ class ArticleView(GenericAPIView):
     serializer_class=ArticleDetailSerializer
     def post(self, request):
             waiting=ArticleStatus.objects.get_or_create(status='waiting for authors')
-            waiting_id=pending[0].id
+            waiting_id=waiting[0].id
             serializer= ArticleDetailSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.validated_data['user_id']=request.user

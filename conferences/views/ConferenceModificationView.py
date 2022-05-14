@@ -27,7 +27,7 @@ class ConferenceModificationView(GenericAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
     #change some information about conference allowed for craetor only
     def put(self,request,id):
-        #try:
+        try:
             conference = Conference.objects.get(id=id)
             start_date=DateType.objects.get_or_create(type='start_date')
             start_date_id=start_date[0].id
@@ -40,6 +40,7 @@ class ConferenceModificationView(GenericAPIView):
             if conference.creator==request.user:
                 serializer = ConferenceModificationSerializer(conference, data=request.data)
                 if serializer.is_valid():
+                    serializer.validated_data.pop('reviewers')
                     serializer.save()
                     if request.data.get('start_date') is not None:
                             sr1=ConferenceDatesHistorySerializer(data={"date":serializer.validated_data['start_date'],"type" :start_date_id,"conference":id})
@@ -62,7 +63,7 @@ class ConferenceModificationView(GenericAPIView):
                     return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
-        #except:
+        except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         
     def delete(self,request,id):

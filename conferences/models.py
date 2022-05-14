@@ -46,13 +46,13 @@ class DateType(models.Model):
 class ConferenceDatesHistory(models.Model):
     date_of_modification=models.DateTimeField(max_length=100,default=datetime.datetime.now,editable=False)
     date=models.DateTimeField(max_length=100)
-    conference=models.ForeignKey(Conference,on_delete=models.DO_NOTHING)
-    type=models.ForeignKey(DateType,on_delete=models.DO_NOTHING)
+    conference=models.ForeignKey(Conference,on_delete=models.CASCADE)
+    type=models.ForeignKey(DateType,on_delete=models.CASCADE)
 
 class ConferenceStatus(models.Model):
     status=models.CharField(max_length=100)
     
 class ConferneceStatusHistory(models.Model):
     date_of_modification=models.DateTimeField(max_length=100,default=datetime.datetime.now,editable=False)
-    conference=models.ForeignKey(Conference,on_delete=models.DO_NOTHING)
-    type=models.ForeignKey(ConferenceStatus,on_delete=models.DO_NOTHING)
+    conference=models.ForeignKey(Conference,on_delete=models.CASCADE)
+    type=models.ForeignKey(ConferenceStatus,on_delete=models.CASCADE)
