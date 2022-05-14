@@ -21,10 +21,10 @@ class ArticleView(GenericAPIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.validated_data['user_id']=request.user
                 serializer.save()
-                sr=ArticleDatesHistorySerializer(data={"article":serializer.data['id']})
-                sr.is_valid()
+                sr=ArticleDatesHistorySerializer(data={"Article":serializer.data['id']})
+                sr.is_valid(raise_exception=True)
                 sr.save()
-                sr5=ArticleStatusHistorySerializer(data={"type" :waiting_id,"article":serializer.data['id']})
+                sr5=ArticleStatusHistorySerializer(data={"type" :waiting_id,"Article":serializer.data['id']})
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
                 return Response(data=serializer.data,status=status.HTTP_201_CREATED)
