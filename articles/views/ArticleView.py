@@ -21,7 +21,7 @@ class ArticleView(GenericAPIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.validated_data['user_id']=request.user
                 serializer.save()
-                sr=ArticleDatesHistorySerializer(data={"Article":serializer.data['id']})
+                sr=ArticleDatesHistorySerializer(data={"article":serializer.data['id']})
                 sr.is_valid()
                 sr.save()
                 sr5=ArticleStatusHistorySerializer(data={"type" :waiting_id,"article":serializer.data['id']})
