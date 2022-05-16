@@ -16,6 +16,7 @@ class AccepteToPublishView(GenericAPIView):
     def get(self, request,author_id,article_id):
         try:
             article_author=Article_Author.objects.get(article_id=article_id,author_id=author_id)
+            print(article_author)
             article_author.is_accepte_to_publish_article=True
             article_author.save()
             #if all is accepte to publish true than artcile(id).accepted_by_authors=True
@@ -25,7 +26,9 @@ class AccepteToPublishView(GenericAPIView):
                 article.save()
                 pending=ArticleStatus.objects.get_or_create(status='pending')
                 pending_id=pending[0].id
-                sr5=ArticleStatusHistorySerializer(data={"type" :pending_id,"conference":article.id})
+                article.status="pending"
+                article.save()
+                sr5=ArticleStatusHistorySerializer(data={"type" :pending_id,"Article":article.id})
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
             #redirect to page that provide (you are accepte an article to be reviewed )
