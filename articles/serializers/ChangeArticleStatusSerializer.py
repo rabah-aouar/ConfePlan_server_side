@@ -8,6 +8,7 @@ article_status_choices = [
     ('pending', 'pending'),
     ('accepted', 'accepted'),
     ('refused', 'refused'),
+    ('accepted to review','accepted to review')
 ]
 class ChangeArticleStatusSerializer(serializers.ModelSerializer):
     status=serializers.ChoiceField(required=False,default='pending',choices=article_status_choices)

@@ -1,4 +1,5 @@
 
+from enum import unique
 import stat
 from telnetlib import STATUS
 from typing_extensions import Required
@@ -34,11 +35,11 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     #status=serializers.ReadOnlyField(required=False,default='pending',choices=article_status_choices)
     conference_id=serializers.PrimaryKeyRelatedField(queryset=Conference.objects.all(),many=False)
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
-    user_id=serializers.PrimaryKeyRelatedField(queryset=Conference.objects.all(),many=False,required=False)
+    user_id=serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model= Article
         fields=['id','title','description','categories','conference_id','user_id','date_of_creation','last_modification','status','authors']
-    
+        extra_kwargs = {'user_id': {'read_only': True}}
     def send_acceptation_email(email,author_id,article_id):
         verification_page_link='http://127.0.0.1:8000/articles/accepte_to_be_published/'+str(author_id)+'/'+article_id
         subject = 'confirm your account on Confplan'

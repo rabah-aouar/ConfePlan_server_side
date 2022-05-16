@@ -18,6 +18,7 @@ class UserProfileModificationSerializer(serializers.ModelSerializer):
     profile_picture=serializers.ImageField(required=False,use_url=True)
     email=serializers.ReadOnlyField()
     is_admin=serializers.ReadOnlyField()
+    is_active=serializers.ReadOnlyField()
     class Meta:
         model= User
-        fields=['id','first_name','family_name','email','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture','is_admin']
+        fields=['id','first_name','family_name','email','phone_number','full_adress','linked_in_username','fields_of_interssts','bio','profile_picture','is_admin','is_active']

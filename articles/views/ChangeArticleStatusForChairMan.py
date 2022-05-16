@@ -28,6 +28,8 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
             accepted_id=accepted[0].id
             refused=ArticleStatus.objects.get_or_create(status='refused')
             refused_id=refused[0].id
+            accepted_to_review=ArticleStatus.objects.get_or_create(status='accepted to review')
+            accepted_to_review_id=accepted_to_review[0].id
             serializer=ChangeArticleStatusSerializer(data=request.data)
             if not serializer.is_valid():
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -36,13 +38,14 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
                 if request.user == Article1.conference_id.creator: 
                     Article1.status=serializer.validated_data['status']
                     Article1.save()
-
                     if serializer.data.get('status')=="accepted":
-                        sr5=ArticleStatusHistorySerializer(data={"type" :accepted_id,"article":id})
-                    else:
-                        sr5=ArticleStatusHistorySerializer(data={"type" :refused_id,"article":id})
-                        sr5.is_valid(raise_exception=True)
-                        sr5.save()
+                        sr5=ArticleStatusHistorySerializer(data={"type" :accepted_id,"Article":id})
+                    elif serializer.data.get('status')=="refused":
+                        sr5=ArticleStatusHistorySerializer(data={"type" :refused_id,"Article":id})
+                    elif serializer.data.get('status')=="accepted to review":
+                        sr5=ArticleStatusHistorySerializer(data={"type" :accepted_to_review_id,"Article":id})
+                    sr5.is_valid(raise_exception=True)
+                    sr5.save()
 
 
                     return Response(status=status.HTTP_200_OK)
