@@ -24,6 +24,6 @@ class MyTokenView(TokenObtainPairView):
         serializer.validated_data.pop('refresh', None)
         user=User.objects.get(email=request.data['email'])
         if user.is_email_verified:
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            return Response(data={'is_admin':user.is_admin ,'access':serializer.validated_data['access']}, status=status.HTTP_200_OK)
         else:
             return Response({"detail":"email is not verified"}, status=status.HTTP_401_UNAUTHORIZED)

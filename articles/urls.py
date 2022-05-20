@@ -6,17 +6,21 @@ from articles.views.ArticleListView import ArticleListView
 from articles.views.RequestToEditView import RequestToEditView
 from articles.views.ArticleListForSearcherView import ArticleListForSearcherView
 from articles.views.ChangeArticleStatusForChairMan import ChangeArticleStatusForChairMan
+from articles.views.WaitingForReviewArticle import WaitingForReviewArticle
+from articles.views.AffectArticleToReviewer import AffectArticleToReviewer
 from django.urls import path
-
 
 
 urlpatterns = [
     path('',ArticleView.as_view()),
     path('upload_article/<slug:id>',UploadArticleView.as_view()),
     path('edit_article/<slug:id>',EditArticle.as_view()),
+    path('edit_article/<slug:id>',EditArticle.as_view()),
     path('request_to_edit',RequestToEditView.as_view()),
+    path('affect_article_to_reviewer',AffectArticleToReviewer.as_view()),
     path('accepte_to_be_published/<slug:author_id>/<slug:article_id>',AccepteToPublishView.as_view()),
     path('list/path',ArticleListForSearcherView.as_view({'get': 'list'})),
     path('listforchairman/path',ArticleListView.as_view({'get': 'list'})),
+    path('listforreviewer/path',WaitingForReviewArticle.as_view({'get': 'list'})),
     path('<slug:id>',ChangeArticleStatusForChairMan.as_view())
 ]

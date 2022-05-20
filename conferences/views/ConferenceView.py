@@ -28,7 +28,6 @@ class ConferenceView(GenericAPIView):
             pending_id=pending[0].id
             
             if serializer.is_valid(raise_exception=True):
-                
                 serializer.validated_data['creator']=request.user
                 serializer.save()
                 sr1=ConferenceDatesHistorySerializer(data={"date":serializer.validated_data['start_date'],"type" :start_date_id,"conference":serializer.data['id']})
@@ -51,7 +50,7 @@ class ConferenceView(GenericAPIView):
                     nt.users_list(reviewer)
                 return Response(data=serializer.data,status=status.HTTP_201_CREATED)
             else:
-                return Response(data=serializer.errors,status=status.HTTP_201_CREATED)
+                return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
             # save the creator in db
             
             
