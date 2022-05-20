@@ -55,8 +55,8 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
                 #conference doesn't exist(wrong id)
                 return Response(status=status.HTTP_404_NOT_FOUND)
     def get(self,request , id):
-        try:
+        #try:
             Article1=Article.objects.get(id=id)
             return Response(data=ArticleDetailSerializer(Article1).data,status=status.HTTP_200_OK)
-        except:
+        #except:
             return Response(status=status.HTTP_404_NOT_FOUND)

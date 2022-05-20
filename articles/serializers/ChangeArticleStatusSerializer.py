@@ -11,7 +11,7 @@ article_status_choices = [
     ('accepted to review','accepted to review')
 ]
 class ChangeArticleStatusSerializer(serializers.ModelSerializer):
-    status=serializers.ChoiceField(required=False,default='pending',choices=article_status_choices)
+    status=serializers.ChoiceField(required=False,choices=article_status_choices)
     class Meta:
         model= Article
         fields=['status']
