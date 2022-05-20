@@ -34,6 +34,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     status=serializers.ReadOnlyField()
     #status=serializers.ReadOnlyField(required=False,default='pending',choices=article_status_choices)
     conference_id=serializers.PrimaryKeyRelatedField(queryset=Conference.objects.all(),many=False)
+    conference_id_name=serializers.ReadOnlyField()
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
     user_id=serializers.StringRelatedField(read_only=True)
     reviewers=serializers.PrimaryKeyRelatedField(many=True,allow_null=True,read_only=True)
