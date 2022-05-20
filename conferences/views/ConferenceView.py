@@ -13,7 +13,6 @@ from notifications.models import notification
 
 class ConferenceView(GenericAPIView):
     serializer_class=ConferenceDetailSerializer
-    parser_classes = (FormParser, MultiPartParser)
     def post(self, request):
             serializer= ConferenceDetailSerializer(data=request.data)
             start_date=DateType.objects.get_or_create(type='start_date')
