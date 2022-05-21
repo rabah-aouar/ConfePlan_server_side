@@ -18,7 +18,7 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
     """end point to change the status oof the article
     """
     serializer_class=ChangeArticleStatusSerializer
-    parser_classes = (FormParser, MultiPartParser)
+    #parser_classes = (FormParser, MultiPartParser)
     #accpte article status='accepted'
     #refuse article status='refused'
     #by default pending
