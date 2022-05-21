@@ -40,7 +40,7 @@ class ArticleConferenceDetail(serializers.ModelSerializer):
     conference_id=Conferencesr()
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
     user_id=serializers.StringRelatedField(read_only=True)
-    reviewers=serializers.SlugRelatedField(many=True,allow_null=True,read_only=True)
+    reviewers=serializers.StringRelatedField(many=True,allow_null=True,read_only=True)
     class Meta:
         model= Article
         fields=['id','title','description','article_url','categories','conference_id','user_id','date_of_creation','last_modification','status','authors','reviewers']

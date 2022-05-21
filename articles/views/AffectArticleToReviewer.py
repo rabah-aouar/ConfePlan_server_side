@@ -20,7 +20,7 @@ class AffectArticleToReviewer(GenericAPIView):
     affect article to reviewer
     """
     serializer_class=AffectArticleToReviewerSerializer
-    #parser_classes = (FormParser, MultiPartParser)
+    parser_classes = (FormParser, MultiPartParser)
     def post(self, request):
         serializer=self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
