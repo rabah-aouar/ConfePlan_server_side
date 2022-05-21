@@ -17,3 +17,4 @@ class WaitingForReviewArticle(ModelViewSet):
     pagination_class = LimitOffsetPagination
     def get_queryset(self):
         return self.request.user.reviewrs_of_article.all()
+        
