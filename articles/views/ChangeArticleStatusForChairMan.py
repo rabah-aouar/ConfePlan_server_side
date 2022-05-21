@@ -13,6 +13,7 @@ from rest_framework.generics import GenericAPIView
 from articles.serializers.ChangeArticleStatusSerializer import ChangeArticleStatusSerializer
 from rest_framework.parsers import FormParser, MultiPartParser
 from articles.models.Article import Article
+from django.core.exceptions import MultipleObjectsReturned
 
 class ChangeArticleStatusForChairMan(GenericAPIView):
     """end point to change the status oof the article
@@ -36,6 +37,7 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
             try:
                 Article1=Article.objects.get(id=id)
                 if request.user == Article1.conference_id.creator: 
+                    print(Article1.status)
                     Article1.status=serializer.validated_data['status']
                     Article1.save()
                     if serializer.data.get('status')=="accepted":
@@ -46,7 +48,6 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
                         sr5=ArticleStatusHistorySerializer(data={"type" :accepted_to_review_id,"Article":id})
                     sr5.is_valid(raise_exception=True)
                     sr5.save()
-
 
                     return Response(status=status.HTTP_200_OK)
                 else:

@@ -15,9 +15,11 @@ class AccepteToReview(GenericAPIView):
     def post(self,request,id):
         try:
             notification1=notification.objects.get(id=id)
-            print(notification1)
+            notification1.invitation_status="accepted"
+            notification1.save()
             conference=Conference.objects.get(id=notification1.conference_id)
-            conference.reviewers.add(request.user)
+            user=notification1.users_list.all().first()
+            conference.reviewers.add(user)
             return Response(status=status.HTTP_200_OK)
         except:
             ##conference doesn't exist(wrong id)
