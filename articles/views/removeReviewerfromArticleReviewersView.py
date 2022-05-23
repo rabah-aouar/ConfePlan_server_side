@@ -15,9 +15,9 @@ from articles.serializers.ChangeArticleStatusSerializer import ChangeArticleStat
 from rest_framework.parsers import FormParser, MultiPartParser
 from articles.models.Article import Article
 
-class AffectArticleToReviewer(GenericAPIView):
+class removeReviewerfromArticleReviewersView(GenericAPIView):
     """
-    affect article to reviewer
+    remove reviewer from article reviewwers
     """
     serializer_class=AffectArticleToReviewerSerializer
     #parser_classes = (FormParser, MultiPartParser)
@@ -26,7 +26,7 @@ class AffectArticleToReviewer(GenericAPIView):
         if serializer.is_valid(raise_exception=True):
             user=serializer.validated_data["user"]
             article=serializer.validated_data["article"]
-            article.reviewers.add(user)
+            article.reviewers.remove(user)
             return Response(status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,status=status.HTTP_200_OK)

@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from conferences.models import Conference, ConferenceStatus
 from conferences.serializers.ConferenceStatusHistorySerializer import ConferenceStatusHistorySerializer
+from notifications.models import notification
 from users.models import User
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
@@ -12,7 +13,7 @@ from conferences.serializers.AccepteConferenceSerializer import AccepteConferenc
 class AdminView(GenericAPIView):
     permission_classes=[IsAdminUser] #only admins can use this view(end point)
     serializer_class=AccepteConferenceSerializer
-
+    
     #accpte conference status='accepted'
     #refuse conference status='refused'
     #by default pending
@@ -28,6 +29,8 @@ class AdminView(GenericAPIView):
             conference=Conference.objects.get(id=id)
             conference.status=serializer.data['status']
             conference.save()
+            nt=notification.objects.create(subject='your request of conference '+conference.title+' is '+conference.status ,type='normal',conference_id=conference.id)
+            nt.users_list.add(conference.creator)
             if serializer.data.get('status')=="accepted":
                 sr5=ConferenceStatusHistorySerializer(data={"type" :accepted_id,"conference":id})
             else:
