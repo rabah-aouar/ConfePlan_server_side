@@ -13,6 +13,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
+from users.models import User
+
+from users.serializers.UserProfileModificationSerializer import UserProfileModificationSerializer
 
 class AuthorSerializer(serializers.ModelSerializer):
     first_name=serializers.CharField(max_length=255,required=True)
@@ -26,6 +29,10 @@ class Conferencesr(serializers.ModelSerializer):
     class Meta:
         model = Conference
         fields = ['id', 'title']
+class reviewersr(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','first_name','family_name']
 
 
 
@@ -40,7 +47,7 @@ class ArticleConferenceDetail(serializers.ModelSerializer):
     conference_id=Conferencesr()
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
     user_id=serializers.StringRelatedField(read_only=True)
-    reviewers=serializers.StringRelatedField(many=True,allow_null=True,read_only=True)
+    reviewers=reviewersr(many=True)
     class Meta:
         model= Article
         fields=['id','title','description','article_url','categories','conference_id','user_id','date_of_creation','last_modification','status','authors','reviewers']
