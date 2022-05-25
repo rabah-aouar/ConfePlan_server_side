@@ -51,4 +51,3 @@ class ArticleConferenceDetail(serializers.ModelSerializer):
     class Meta:
         model= Article
         fields=['id','title','description','article_url','categories','conference_id','user_id','date_of_creation','last_modification','status','authors','reviewers']
-        extra_kwargs = {'user_id': {'read_only': True}}

@@ -29,4 +29,4 @@ class removeReviewerfromArticleReviewersView(GenericAPIView):
             article.reviewers.remove(user)
             return Response(status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors,status=status.HTTP_200_OK)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
