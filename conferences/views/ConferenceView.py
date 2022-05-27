@@ -46,8 +46,7 @@ class ConferenceView(GenericAPIView):
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
                 for reviewer in reviewers:
-                    nt=notification.objects.create(subject='you are invited to review in conference',type='invitation',invitation_status='pending',conference_id=serializer.data['id'])
-                    nt.users_list.add(reviewer)
+                    nt=notification.objects.create(subject='you are invited to review in conference',type='invitation',invitation_status='pending',conference_id=serializer.data['id'],users=reviewer)
                 return Response(data=serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)

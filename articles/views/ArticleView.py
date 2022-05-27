@@ -9,6 +9,7 @@ from rest_framework.parsers import FormParser,MultiPartParser,FileUploadParser
 
 from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 from conferences.models import Conference
+from notifications.models import notification
 
 class ArticleView(GenericAPIView):
     """ end point to create an article object 

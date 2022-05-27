@@ -15,6 +15,8 @@ from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
 
+from notifications.models import notification
+
 class AuthorSerializer1(serializers.ModelSerializer):
     first_name=serializers.CharField(max_length=255,required=True)
     last_name=serializers.CharField(max_length=255,required=True)
@@ -56,7 +58,14 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         authors_data = validated_data.pop('authors')
         article = Article.objects.create(**validated_data)
-        article.save
+        article.save()
+        if len(authors_data)==0:
+            print(len(authors_data))
+            article.accepted_to_published_by_researchers=True
+            article.status="pending"
+            article.save()
+            notification.objects.create(subject= "a new article is add to conference "+str(article.conference_id.title),
+            type='normal',invitation_status="pending",users=article.conference_id.creator)
         for author_data in authors_data:
             try:
                 author1=Author.objects.get(email=author_data['email'])

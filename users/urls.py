@@ -15,7 +15,7 @@ from django.urls import path
 urlpatterns = [
     path('profile', ProfileView.as_view()),
     path('<slug:id>',GetUserWithId.as_view()),
-    path('register', RegisterView.as_view()),
+    path('register/', RegisterView.as_view()),
     path('verify-account/<str:id>', VerifyEmailView.as_view()),
     path('admin/<str:id>',AdminView.as_view()),
     path('list/path',GetAllusersView.as_view({'get': 'list'})),

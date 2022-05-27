@@ -29,8 +29,8 @@ class AdminView(GenericAPIView):
             conference=Conference.objects.get(id=id)
             conference.status=serializer.data['status']
             conference.save()
-            nt=notification.objects.create(subject='your request of conference '+conference.title+' is '+conference.status ,type='normal',conference_id=conference.id)
-            nt.users_list.add(conference.creator)
+            nt=notification.objects.create(subject='your request of conference '+conference.title+' is '+conference.status ,type='normal',conference_id=conference.id,users=conference.creator)
+            
             if serializer.data.get('status')=="accepted":
                 sr5=ConferenceStatusHistorySerializer(data={"type" :accepted_id,"conference":id})
             else:

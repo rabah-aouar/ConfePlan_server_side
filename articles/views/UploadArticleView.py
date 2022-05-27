@@ -31,6 +31,7 @@ class UploadArticleView(GenericAPIView):
                         sr=ArticleDatesHistorySerializer(data={"Article":id})
                         sr.is_valid()
                         sr.save()
+                        
                         return Response(data={'article_url':article.article_url.url},status=status.HTTP_200_OK)
                     else:
                         return Response(data={'deadline has passed'},status=status.HTTP_400_BAD_REQUEST)

@@ -13,6 +13,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
+from reports.models.ReportsModels import Answer, Question, Report
+from reports.serializers.AnswerSerializer import AnswerSerializer
+from reports.serializers.QuestionSerializer import QuestionSerializer
+from reports.serializers.ReportSerializer import ReportSerializer
 from users.models import User
 
 from users.serializers.UserProfileModificationSerializer import UserProfileModificationSerializer
@@ -34,7 +38,16 @@ class reviewersr(serializers.ModelSerializer):
         model = User
         fields = ['id','first_name','family_name']
 
-
+class AnsweranSerializer(serializers.ModelSerializer):
+    question=QuestionSerializer()
+    class Meta:
+        model = Answer
+        fields = ['id','question','answer']
+class ReportsrSerializer(serializers.ModelSerializer):
+    answers = AnsweranSerializer(many=True)
+    class Meta:
+        model = Report
+        fields = ['id','remark','date_of_submition','score','review_done','article','answers']
 
 class ArticleConferenceDetail(serializers.ModelSerializer):
     title=serializers.CharField(max_length=255,required=True)
@@ -48,6 +61,7 @@ class ArticleConferenceDetail(serializers.ModelSerializer):
     authors=AuthorSerializer(many=True,required=False,allow_null=True)
     user_id=serializers.StringRelatedField(read_only=True)
     reviewers=reviewersr(many=True)
+    report_set=ReportsrSerializer(many=True)
     class Meta:
         model= Article
-        fields=['id','title','description','article_url','categories','conference_id','user_id','date_of_creation','last_modification','status','authors','reviewers']
+        fields=['id','title','description','article_url','categories','conference_id','user_id','date_of_creation','last_modification','status','authors','reviewers','report_set']

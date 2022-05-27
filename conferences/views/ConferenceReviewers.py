@@ -12,6 +12,7 @@ from rest_framework import status
 
 class ConferenceReviewers(GenericAPIView):
     permission_classes=()
+    serializer_class=UserProfileModificationSerializer
     def post(self,request,id):
         try:
             conference=Conference.objects.get(id=id)

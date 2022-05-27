@@ -7,6 +7,7 @@ from articles.serializers.AffectArticleToReviewerSerializer import AffectArticle
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 from conferences.models import Conference
+from notifications.models import notification
 from users.models import User
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
@@ -27,6 +28,8 @@ class removeReviewerfromArticleReviewersView(GenericAPIView):
             user=serializer.validated_data["user"]
             article=serializer.validated_data["article"]
             article.reviewers.remove(user)
+            notification.objects.create(subject= "chair man delete your name from list to review "+str(article.title),
+            type='normal',invitation_status="pending",users=user)
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

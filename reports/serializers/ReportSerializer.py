@@ -1,17 +1,17 @@
 
 from datetime import datetime
 from rest_framework import serializers
+
 from reports.models.ReportsModels import Answer, Report
 from reports.serializers.AnswerSerializer import AnswerSerializer
+from users.models import User
 
 
-     
 class ReportSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
     class Meta:
         model = Report
         fields = ['id','remark','date_of_submition','score','review_done','article','answers']
-    
     def create(self, validated_data):
         answers = validated_data.pop('answers')
         report = Report.objects.create(**validated_data)

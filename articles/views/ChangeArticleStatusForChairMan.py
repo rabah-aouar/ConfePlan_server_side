@@ -6,6 +6,7 @@ from articles.models.Article import Article, ArticleStatus
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 from conferences.models import Conference
+from notifications.models import notification
 from users.models import User
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
@@ -42,13 +43,16 @@ class ChangeArticleStatusForChairMan(GenericAPIView):
                     Article1.save()
                     if serializer.data.get('status')=="accepted":
                         sr5=ArticleStatusHistorySerializer(data={"type" :accepted_id,"Article":id})
+                        notification.objects.create(subject= "your article of title "+str(Article1.title)+" is  "+str(serializer.data.get('status')),
+                        type='normal',invitation_status="pending",users=Article1.user_id)
                     elif serializer.data.get('status')=="refused":
                         sr5=ArticleStatusHistorySerializer(data={"type" :refused_id,"Article":id})
+                        notification.objects.create(subject= "your article of title "+str(Article1.title)+" is  "+str(serializer.data.get('status')),
+                        type='normal',invitation_status="pending",users=Article1.user_id)
                     elif serializer.data.get('status')=="accepted to review":
                         sr5=ArticleStatusHistorySerializer(data={"type" :accepted_to_review_id,"Article":id})
                     sr5.is_valid(raise_exception=True)
                     sr5.save()
-
                     return Response(status=status.HTTP_200_OK)
                 else:
                     return Response({"you have not permission to change the status of the article"},status=status.HTTP_400_BAD_REQUEST)

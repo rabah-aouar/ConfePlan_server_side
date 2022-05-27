@@ -7,6 +7,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from articles.models.Article_Author import Article_Author
 from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
+from notifications.models import notification
 class AccepteToPublishView(GenericAPIView):
     """end point to accepte to publish the article
             you have to specify the author_id and article_id
@@ -28,6 +29,8 @@ class AccepteToPublishView(GenericAPIView):
                 pending_id=pending[0].id
                 article.status="pending"
                 article.save()
+                notification.objects.create(subject= "a new article is add to conference "+str(article.conference_id.title),
+                type='normal',invitation_status="pending",users=article.conference_id.creator)
                 sr5=ArticleStatusHistorySerializer(data={"type" :pending_id,"Article":article.id})
                 sr5.is_valid(raise_exception=True)
                 sr5.save()

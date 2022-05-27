@@ -10,8 +10,8 @@ from conferences.models import Conference
 class Question(models.Model):
     question=models.CharField(max_length=250,blank=False,null=False)
     conference=models.ForeignKey(Conference,on_delete=models.CASCADE)
-
-
+    def __str__(self):
+        return self.question
 class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
     answer = models.BooleanField(blank=False,null=False)

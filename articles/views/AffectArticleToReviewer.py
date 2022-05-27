@@ -1,4 +1,5 @@
 from ast import Delete
+from asyncio.windows_events import NULL
 from webbrowser import get
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,6 +8,7 @@ from articles.serializers.AffectArticleToReviewerSerializer import AffectArticle
 from articles.serializers.ArticleDetailSerializer import ArticleDetailSerializer
 from articles.serializers.ArticleStatusHistorySerializer import ArticleStatusHistorySerializer
 from conferences.models import Conference
+from notifications.models import notification
 from users.models import User
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
@@ -27,6 +29,8 @@ class AffectArticleToReviewer(GenericAPIView):
             user=serializer.validated_data["user"]
             article=serializer.validated_data["article"]
             article.reviewers.add(user)
+            notification.objects.create(subject= "you have new article to review ",
+            type='normal',invitation_status="",users=user)
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

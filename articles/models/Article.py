@@ -19,7 +19,7 @@ class Article(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
     authors=models.ManyToManyField(to="articles.Author",through=Article_Author)
     reviewers=models.ManyToManyField(User,related_name="reviewrs_of_article")
-
+    
 class ArticleDatesHistory(models.Model):
     date_of_modification=models.DateTimeField(max_length=100,default=datetime.now,editable=False)
     Article=models.ForeignKey(Article,on_delete=models.CASCADE)

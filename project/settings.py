@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'notifications',
     'articles',
     'django_filters',
-    'reports'
+    'reports',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
+ASGI_APPLICATION = 'project.asgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -181,3 +182,9 @@ CORS_ALLOW_CREDENTIALS = True
 #added to add picture
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}

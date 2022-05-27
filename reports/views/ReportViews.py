@@ -73,9 +73,12 @@ class GetReportView(generics.GenericAPIView):
         sr = ReportSerializer(rep,data=request.data)
         if sr.is_valid():
             sr.save()
+            """
+            if sr.validated_data["review_done"] :
+            notification.objects.create(subject=str(user)+' had ' +serializer.validated_data["status"] + ' to review in conference  '+ str(conference),
+            type='normal',invitation_status='pending',users=rep.article.conference_id.creator)"""
             return Response(sr.data,status=status.HTTP_200_OK)
         return Response("wrong data",status=status.HTTP_400_BAD_REQUEST)
-              
 class GetReportChairmanView(ModelViewSet):
     '''
     only chairman can use this endpoint
