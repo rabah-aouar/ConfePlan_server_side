@@ -6,6 +6,7 @@ from conferences.views.AdminView import AdminView
 from conferences.views.ConferencesListView import ConferenceListView
 from conferences.views.ConferencesListForAdminView import ConferencesListForAdminView
 from conferences.views.AccepteToReview import AccepteToReview
+from conferences.views.ConferenceslistForCreator import ConferenceslistForCreator
 from django.urls import path
 
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path('accepte_to_review/<slug:id>',AccepteToReview.as_view()),
     path('list/path',ConferenceListView.as_view({'get': 'list'})),
     path('reviewers/list/<slug:id>',ConferenceReviewers.as_view()),
-    path('admin/list/path',ConferencesListForAdminView.as_view({'get': 'list'}))
+    path('admin/list/path',ConferencesListForAdminView.as_view({'get': 'list'})),
+    path('conferences_creator/list/path',ConferenceslistForCreator.as_view({'get': 'list'}))
 ]
