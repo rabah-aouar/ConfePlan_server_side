@@ -29,6 +29,10 @@ class AdminView(GenericAPIView):
             conference=Conference.objects.get(id=id)
             conference.status=serializer.data['status']
             conference.save()
+            reviewers=conference.reviewers.all()
+            for rev in reviewers:
+                nt=notification.objects.create(subject='you are invited to review in conference',type='invitation',invitation_status='pending',conference_id=id,users=rev)
+                conference.reviewers.remove(rev)
             nt=notification.objects.create(subject='your request of conference '+conference.title+' is '+conference.status ,type='normal',conference_id=conference.id,users=conference.creator)
             
             if serializer.data.get('status')=="accepted":

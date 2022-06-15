@@ -25,11 +25,11 @@ class ConferenceView(GenericAPIView):
             start_submition_date_id=start_submition_date[0].id
             pending=ConferenceStatus.objects.get_or_create(status='pending')
             pending_id=pending[0].id
-            
             if serializer.is_valid(raise_exception=True):
                 reviewers=serializer.validated_data.pop('reviewers')
                 serializer.validated_data['creator']=request.user
                 serializer.save()
+                Conference1=Conference.objects.get(id=serializer.data['id'])
                 sr1=ConferenceDatesHistorySerializer(data={"date":serializer.validated_data['start_date'],"type" :start_date_id,"conference":serializer.data['id']})
                 sr1.is_valid(raise_exception=True)
                 sr1.save()
@@ -46,11 +46,10 @@ class ConferenceView(GenericAPIView):
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
                 for reviewer in reviewers:
-                    nt=notification.objects.create(subject='you are invited to review in conference',type='invitation',invitation_status='pending',conference_id=serializer.data['id'],users=reviewer)
+                    Conference1.reviewers.add(reviewer)
                 return Response(data=serializer.data,status=status.HTTP_201_CREATED)
             else:
                 return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
             # save the creator in db
-            
-            
+
 
