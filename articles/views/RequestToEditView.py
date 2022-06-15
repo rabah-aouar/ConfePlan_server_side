@@ -1,5 +1,6 @@
 from rest_framework import status
 from articles.models.Article import Article
+from articles.models.RequestToEdit import RequestToEdit
 from articles.serializers.RequestToEditSerializer import RequestToEditSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -26,3 +27,16 @@ class RequestToEditView(GenericAPIView):
             else:
                 return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
             # save the creator in db
+class GetRequestToEditView(GenericAPIView):
+    """end point to get the request to edit article
+    """
+    serializer_class=()
+    parser_classes = (FormParser, MultiPartParser)
+    def get(self, request, request_to_edit_id):
+        #try:
+            req=RequestToEdit.objects.get(id=request_to_edit_id)
+            return Response(data=RequestToEditSerializer(req).data,status=status.HTTP_200_OK)
+        #except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+            # save the creator in db
+

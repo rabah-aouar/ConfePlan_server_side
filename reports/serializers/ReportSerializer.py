@@ -11,7 +11,7 @@ class ReportSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
     class Meta:
         model = Report
-        fields = ['id','remark','date_of_submition','score','review_done','article','answers']
+        fields = ['id','user','remark','date_of_submition','score','review_done','article','answers']
     def create(self, validated_data):
         answers = validated_data.pop('answers')
         report = Report.objects.create(**validated_data)
