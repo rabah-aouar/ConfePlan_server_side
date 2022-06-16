@@ -19,4 +19,6 @@ class ArticleListView(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['status']
     def get_queryset(self):
-        return Article.objects.filter(conference_id__creator=self.request.user,accepted_to_published_by_researchers=True)
+        a=self.request.query_params.get('conference_id')
+        print(a)
+        return Article.objects.filter(conference_id__id=a,accepted_to_published_by_researchers=True)

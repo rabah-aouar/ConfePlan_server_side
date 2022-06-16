@@ -9,7 +9,7 @@ from articles.views.ChangeArticleStatusForChairMan import ChangeArticleStatusFor
 from articles.views.WaitingForReviewArticle import WaitingForReviewArticle
 from articles.views.AffectArticleToReviewer import AffectArticleToReviewer
 from articles.views.removeReviewerfromArticleReviewersView import removeReviewerfromArticleReviewersView
-from django.urls import path
+from django.urls import path, re_path
 
 
 urlpatterns = [
@@ -23,7 +23,7 @@ urlpatterns = [
     path('remove_reviewer_from_article_reviewers',removeReviewerfromArticleReviewersView.as_view()),
     path('accepte_to_be_published/<slug:author_id>/<slug:article_id>',AccepteToPublishView.as_view()),
     path('list/path',ArticleListForSearcherView.as_view({'get': 'list'})),
-    path('listforchairman/path',ArticleListView.as_view({'get': 'list'})),
+    path('listforchairman/path/',ArticleListView.as_view({'get': 'list'})),
     path('listforreviewer/path',WaitingForReviewArticle.as_view({'get': 'list'})),
     path('<slug:id>',ChangeArticleStatusForChairMan.as_view())
 ]
