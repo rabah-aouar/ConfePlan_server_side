@@ -31,7 +31,7 @@ class GetRequestToEditView(GenericAPIView):
     """end point to get the request to edit article
     """
     serializer_class=()
-    parser_classes = (FormParser, MultiPartParser)
+    #parser_classes = (FormParser, MultiPartParser)
     def get(self, request, request_to_edit_id):
         #try:
             req=RequestToEdit.objects.get(id=request_to_edit_id)

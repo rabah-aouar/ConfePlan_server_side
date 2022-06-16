@@ -18,7 +18,7 @@ class EditArticle(GenericAPIView):
     """
 
     serializer_class=EditArticleSerializer
-    parser_classes = (FormParser, MultiPartParser)
+    #parser_classes = (FormParser, MultiPartParser)
     def post(self, request,id):
             serializer= EditArticleSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
