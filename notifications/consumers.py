@@ -26,4 +26,4 @@ class NotificationConsumer(WebsocketConsumer):
         return super().disconnect(code)
 
     def send_notification(self,event):
-        self.send(text_data=json.dumps({'notifications':[json.dumps(NotificationSerializer(event["value"]).data),]}))
+        self.send(text_data=json.dumps({'notifications':[NotificationSerializer(event["value"]).data,]}))
