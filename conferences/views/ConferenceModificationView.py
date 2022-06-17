@@ -11,7 +11,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 
 class ConferenceModificationView(GenericAPIView):
     serializer_class=ConferenceModificationSerializer
-    parser_classes = (FormParser, MultiPartParser)
+    #parser_classes = (FormParser, MultiPartParser)
     #get conference information with id of the conference 
     #if request from creator more information will be shown
     def get(self,request,id):

@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from pyexpat import model
 from rest_framework import serializers
 
 from reports.models.ReportsModels import Answer, Report
@@ -9,6 +10,7 @@ from users.models import User
 
 class ReportSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
+    User=serializers.ReadOnlyField()
     class Meta:
         model = Report
         fields = ['id','user','remark','date_of_submition','score','review_done','article','answers']
