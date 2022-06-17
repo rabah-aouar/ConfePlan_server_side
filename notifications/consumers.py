@@ -18,9 +18,7 @@ class NotificationConsumer(WebsocketConsumer):
         notifications=NotificationSerializer(data=self.scope['user'].notification_set.all(),many=True)
         notifications.is_valid()
         notifications_data=notifications.data
-        self.send(text_data=json.dumps({'notifications':notifications_data,
-            'type':'connection_established',
-            'message':'you are now connected'}))
+        self.send(text_data=json.dumps({'notifications':notifications_data,}))
     def receive(self, text_data=None, bytes_data=None):
         return super().receive(text_data, bytes_data)
 
@@ -28,4 +26,4 @@ class NotificationConsumer(WebsocketConsumer):
         return super().disconnect(code)
 
     def send_notification(self,event):
-        self.send(text_data=json.dumps(NotificationSerializer(event["value"]).data))
+        self.send(text_data=json.dumps({'notifications':[json.dumps(NotificationSerializer(event["value"]).data),]}))
