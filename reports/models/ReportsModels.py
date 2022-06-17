@@ -20,7 +20,7 @@ class Answer(models.Model):
 class Report(models.Model):
     remark=models.CharField(max_length=2000,blank=False,null=False)
     date_of_submition=models.DateTimeField(max_length=100,default=datetime.datetime.now(),editable=False)
-    score=models.PositiveBigIntegerField(max_length=3000,blank=False,null=False)
+    score=models.FloatField(max_length=3000,blank=False,null=False)
     review_done=models.BooleanField()
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     article=models.ForeignKey(Article,on_delete=models.CASCADE)
