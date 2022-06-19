@@ -45,9 +45,10 @@ class AnsweranSerializer(serializers.ModelSerializer):
         fields = ['id','question','answer']
 class ReportsrSerializer(serializers.ModelSerializer):
     answers = AnsweranSerializer(many=True)
+    user=serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Report
-        fields = ['id','remark','date_of_submition','score','review_done','article','answers']
+        fields = ['id','remark','user','date_of_submition','score','review_done','article','answers']
 
 class ArticleConferenceDetail(serializers.ModelSerializer):
     title=serializers.CharField(max_length=255,required=True)

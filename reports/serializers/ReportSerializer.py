@@ -10,7 +10,7 @@ from users.models import User
 
 class ReportSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many=True)
-    user=serializers.PrimaryKeyRelatedField(read_only=True)
+    user=serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Report
         fields = ['id','user','remark','date_of_submition','score','review_done','article','answers']
