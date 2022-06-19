@@ -12,7 +12,7 @@ class ProfileView(GenericAPIView):
     put methode modify user profile 
     '''
     serializer_class=UserProfileModificationSerializer
-    #parser_classes = (FormParser, MultiPartParser)
+    parser_classes = (FormParser, MultiPartParser)
     #get user profile informations
     def get(self, request):
         serializer = self.serializer_class(request.user)
