@@ -53,7 +53,7 @@ class GetReportView(generics.GenericAPIView):
             sr = ReportsrSerializer(Report.objects.get(pk=id))
             if not sr.data['review_done']:
                 return Response(data=sr.data,status=status.HTTP_200_OK)
-            return Response('review for this article is done',status=status.HTTP_200_OK)
+            return Response(data=sr.data,status=status.HTTP_200_OK)
         except:
             return Response("report not found",status=status.HTTP_404_NOT_FOUND)
     def put(self,request,id, format=None):
