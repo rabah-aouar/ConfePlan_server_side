@@ -11,7 +11,7 @@ from rest_framework.parsers import FormParser,MultiPartParser,FileUploadParser
 
 class ModifyArticleView(GenericAPIView):
     serializer_class=ArticleDetailSerializerformodification
-    parser_classes = (FormParser, MultiPartParser)
+    #parser_classes = (FormParser, MultiPartParser)
     def put(self, request,id):
         try:
             serializer= ArticleDetailSerializerformodification(data=request.data)
@@ -21,7 +21,7 @@ class ModifyArticleView(GenericAPIView):
                     print(article.conference_id.submition_deadline.replace(tzinfo=None))
                     print(datetime.datetime.now())
                     if article.conference_id.submition_deadline.replace(tzinfo=None) > datetime.datetime.now().replace(tzinfo=None):
-                        article.article_url=serializer.validated_data['article_url']
+                        #article.article_url=serializer.validated_data['article_url']
                         article.title=serializer.validated_data['title']
                         article.description=serializer.validated_data['description']
                         article.categories=serializer.validated_data['categories']
@@ -33,6 +33,6 @@ class ModifyArticleView(GenericAPIView):
                     else:
                         return Response(data={'deadline has passed'},status=status.HTTP_400_BAD_REQUEST)
                 except:
-                    return Response(status=status.HTTP_404_NOT_FOUND)
+                    return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)
         except:
-                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
