@@ -80,3 +80,12 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
                 ArticleDetailSerializer.send_acceptation_email(author_data['email'],a.id,str(article.id))
                 #send email to author contain id of article and his id 
         return article
+
+
+class ArticleDetailSerializerformodification(serializers.ModelSerializer):
+    title=serializers.CharField(max_length=255,required=False)
+    description=serializers.CharField(max_length=255,required=False)
+    categories=serializers.CharField(max_length=255,required=False)
+    class Meta:
+        model= Article
+        fields=['id','title','description','article_url','categories']

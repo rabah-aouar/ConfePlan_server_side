@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAdminUser
 
 class ConferencesListForAdminView(ModelViewSet):
     ''' get all the conferences to the admin panel'''
-    queryset= Conference.objects.all()
+    queryset= Conference.objects.filter(status="pending")
     permission_classes = (IsAdminUser ,)
     serializer_class = ConferenceDetailSerializer
     pagination_class = LimitOffsetPagination

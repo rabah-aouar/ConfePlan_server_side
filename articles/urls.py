@@ -9,6 +9,7 @@ from articles.views.ChangeArticleStatusForChairMan import ChangeArticleStatusFor
 from articles.views.WaitingForReviewArticle import WaitingForReviewArticle
 from articles.views.AffectArticleToReviewer import AffectArticleToReviewer
 from articles.views.removeReviewerfromArticleReviewersView import removeReviewerfromArticleReviewersView
+from articles.views.ModifyArticleView import ModifyArticleView
 from django.urls import path, re_path
 
 
@@ -16,7 +17,7 @@ urlpatterns = [
     path('',ArticleView.as_view()),
     path('upload_article/<slug:id>',UploadArticleView.as_view()),
     path('edit_article/<slug:id>',EditArticle.as_view()),
-    path('edit_article/<slug:id>',EditArticle.as_view()),
+    path('/article/<slug:id>',ModifyArticleView.as_view()),
     path('request_to_edit',RequestToEditView.as_view()),
     path('get/request_to_edit/<slug:request_to_edit_id>',GetRequestToEditView.as_view()),
     path('affect_article_to_reviewer',AffectArticleToReviewer.as_view()),
