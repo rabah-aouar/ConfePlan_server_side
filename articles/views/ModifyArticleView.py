@@ -35,4 +35,4 @@ class ModifyArticleView(GenericAPIView):
                 except:
                     return Response(status=status.HTTP_404_NOT_FOUND)
         except:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
