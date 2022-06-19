@@ -20,6 +20,12 @@ class VerifyEmailView(APIView):
             user=User.objects.get(id=id.replace('"',''))
             user.is_email_verified=True
             user.save()
-            return HttpResponseRedirect(redirect_to='http://127.0.0.1:3000/confirm')
+            x_forw_for=request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forw_for is not None :
+                ip=x_forw_for.split(',')[0]
+            else:
+                ip=request.META.get('REMOTE_ADDR')
+            adddress=ip+"/confirm"
+            return HttpResponseRedirect(redirect_to=adddress)
         except:
             return Response({'message': 'invalid id'},status=status.HTTP_400_BAD_REQUEST)
