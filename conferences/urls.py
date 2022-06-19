@@ -9,8 +9,6 @@ from conferences.views.AccepteToReview import AccepteToReview
 from conferences.views.ConferenceslistForCreator import ConferenceslistForCreator
 from django.urls import path
 
-
-
 urlpatterns = [
     path('<slug:id>', ConferenceModificationView.as_view()),
     path('',ConferenceView.as_view()),

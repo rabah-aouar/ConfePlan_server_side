@@ -8,6 +8,8 @@ from rest_framework import serializers
 from articles.models.Article import Article
 from django.db import models
 from articles.models.Author import Author
+from articles.serializers.ArticleConferenceDetail import AnsweranSerializer
+AnsweranSerializer
 
 from conferences.models import Conference
 from django.core.mail import send_mail

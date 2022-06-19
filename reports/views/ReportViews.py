@@ -1,4 +1,5 @@
 import imp
+from articles.serializers.ArticleConferenceDetail import ReportsrSerializer
 from conferences.models import Conference
 from reports.serializers.QuestionSerializer import QuestionSerializer
 from reports.serializers.ReportSerializer import *
@@ -49,7 +50,7 @@ class GetReportView(generics.GenericAPIView):
         if report does not exist = status 404 report not found
         '''
         try:
-            sr = ReportSerializer(Report.objects.get(pk=id))
+            sr = ReportsrSerializer(Report.objects.get(pk=id))
             if not sr.data['review_done']:
                 return Response(data=sr.data,status=status.HTTP_200_OK)
             return Response('review for this article is done',status=status.HTTP_200_OK)
