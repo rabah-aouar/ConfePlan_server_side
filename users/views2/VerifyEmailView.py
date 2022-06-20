@@ -26,6 +26,7 @@ class VerifyEmailView(APIView):
             else:
                 ip=request.META.get('REMOTE_ADDR')
             adddress=ip+"/confirm"
+            print(adddress)
             return HttpResponseRedirect(redirect_to=adddress)
         except:
             return Response({'message': 'invalid id'},status=status.HTTP_400_BAD_REQUEST)

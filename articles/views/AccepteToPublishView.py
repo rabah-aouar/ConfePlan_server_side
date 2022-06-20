@@ -35,7 +35,7 @@ class AccepteToPublishView(GenericAPIView):
                 sr5.is_valid(raise_exception=True)
                 sr5.save()
             #redirect to page that provide (you are accepte an article to be reviewed )
-            return HttpResponseRedirect(redirect_to='https://www.google.com/?hl=fr')
+            return HttpResponseRedirect(redirect_to='http://192.168.8.100:3000/author')
 
         except:
             return Response({"detail":"invalid one of ids"},status=status.HTTP_400_BAD_REQUEST)
