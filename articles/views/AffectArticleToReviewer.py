@@ -1,5 +1,4 @@
 from ast import Delete
-from asyncio.windows_events import NULL
 from webbrowser import get
 from rest_framework.views import APIView
 from rest_framework.response import Response
